@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}NeuroLearn – Settings{% endblock %}
+
+{% block content %}
+<h1>Settings</h1>
+
+<section>
+  <h2>Reading mode</h2>
+  <form id="prefs-form">
+    <div class="form-group">
+      <label>Theme / Visual mode:</label>
+      <div class="radio-group">
+        <label><input type="radio" name="theme_mode" value="default" {% if prefs.theme_mode == 'default' %}checked{% endif %}> Default</label>
+        <label><input type="radio" name="theme_mode" value="low_stim" {% if prefs.theme_mode == 'low_stim' %}checked{% endif %}> Low stimulus (muted colours)</label>
+        <label><input type="radio" name="theme_mode" value="high_contrast" {% if prefs.theme_mode == 'high_contrast' %}checked{% endif %}> High contrast (black on white)</label>
+        <label><input type="radio" name="theme_mode" value="dark_high_contrast" {% if prefs.theme_mode == 'dark_high_contrast' %}checked{% endif %}> Dark high contrast (white/yellow on black)</label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="font-size-slider">Font size: <span id="font-size-val">{{ prefs.font_size }}px</span></label>
+      <input type="range" id="font-size-slider" name="font_size" min="12" max="24" step="2" value="{{ prefs.font_size }}">
+    </div>
+
+    <div class="form-group">
+      <label for="line-spacing-slider">Line spacing: <span id="line-spacing-val">{{ prefs.line_spacing }}</span></label>
+      <input type="range" id="line-spacing-slider" name="line_spacing" min="1.2" max="2.0" step="0.1" value="{{ prefs.line_spacing }}">
+    </div>
+
+    <div class="form-group">
+      <label>
+        <input type="checkbox" id="reduced-motion-check" name="reduced_motion" value="1" {% if prefs.reduced_motion %}checked{% endif %}>
+        Reduced motion (disable animations)
+      </label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save preferences</button>
+    <span id="prefs-saved-msg" style="display:none; margin-left:1rem;">Saved.</span>
+  </form>
+</section>
+
+<section>
+  <h2>Privacy &amp; data</h2>
+  <p>Consent status: <strong id="consent-status">{% if consented %}Consent given (expires in ~7 days){% else %}No consent recorded{% endif %}</strong></p>
+  <p>All notes are automatically deleted after 7 days. You can delete all data immediately below.</p>
+
+  <button id="btn-delete-data" class="btn btn-danger">Delete all my data</button>
+  <div id="delete-msg" style="display:none;" class="notice notice-ok">All your data has been deleted.</div>
+</section>
+
+{% endblock %}

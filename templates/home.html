@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}NeuroLearn – Home{% endblock %}
+
+{% block content %}
+<h1>NeuroLearn</h1>
+<p>Paste your study notes below and get a structured summary. Works offline &mdash; nothing is sent to any server.</p>
+
+{% if not consented %}
+<div class="notice notice-warn">
+  You have not given consent to process notes. Please click <strong>"I consent"</strong> in the banner above before summarising.
+</div>
+{% endif %}
+
+<section>
+  <h2>Paste your notes</h2>
+  <form id="summarise-form">
+    <label for="notes-input">Notes (plain text, up to ~5 minutes of reading):</label>
+    <textarea id="notes-input" name="text" rows="12" placeholder="Paste your lecture notes, textbook paragraphs, or any text here..."></textarea>
+    <div class="form-row">
+      <button type="submit" class="btn btn-primary" id="summarise-btn">Summarise</button>
+      <span id="summarise-status"></span>
+    </div>
+  </form>
+</section>
+
+{% if recent %}
+<section>
+  <h2>Recent summaries</h2>
+  <ul class="summary-list">
+    {% for item in recent %}
+    <li>
+      <a href="/reader/{{ item.id }}">Summary from {{ item.created_at[:10] }}</a>
+      &mdash; <span class="preview-text">{{ item.preview | replace('## Summary', '') | replace('•', '') | truncate(80) }}</span>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+{% endblock %}

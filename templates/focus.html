@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}NeuroLearn – Focus Timer{% endblock %}
+
+{% block content %}
+<h1>Focus Timer</h1>
+<p>Use the Pomodoro technique: focus for 25 minutes, then take a short break.</p>
+
+<section class="timer-section">
+  <div id="timer-display" class="timer-display">25:00</div>
+
+  <div class="control-row timer-setup" id="timer-setup">
+    <button class="btn" id="btn-minus5">-5 min</button>
+    <span id="timer-duration-label">25 min</span>
+    <button class="btn" id="btn-plus5">+5 min</button>
+  </div>
+
+  <div class="control-row">
+    <button class="btn btn-primary" id="btn-start">Start</button>
+    <button class="btn" id="btn-pause" disabled>Pause</button>
+    <button class="btn" id="btn-reset">Reset</button>
+  </div>
+
+  <div id="timer-status" class="timer-status"></div>
+</section>
+
+<section class="tasks-section">
+  <h2>Session tasks</h2>
+  <p><small>Break your work into small steps. Tick each one as you finish.</small></p>
+
+  <div class="control-row">
+    <input type="text" id="task-input" placeholder="Add a task..." style="flex:1;">
+    <button class="btn btn-primary" id="btn-add-task">Add</button>
+  </div>
+
+  <ul id="task-list" class="task-list">
+    {% for task in tasks %}
+    <li class="task-item {% if task.is_done %}task-done{% endif %}" data-task-id="{{ task.id }}">
+      <input type="checkbox" {% if task.is_done %}checked{% endif %} class="task-checkbox">
+      <span class="task-title">{{ task.title }}</span>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  var ACTIVE_SESSION_ID = {{ active_session_id | tojson }};
+</script>
+{% endblock %}

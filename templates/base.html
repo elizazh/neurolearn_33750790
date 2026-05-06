@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}NeuroLearn{% endblock %}</title>
+
+  <!-- Apply saved theme from localStorage BEFORE page renders to avoid flash -->
+  <script>
+    (function () {
+      try {
+        var prefs = JSON.parse(localStorage.getItem('nl_prefs') || '{}');
+        if (prefs.theme_mode) {
+          document.documentElement.setAttribute('data-theme', prefs.theme_mode);
+        }
+        if (prefs.font_size) {
+          document.documentElement.style.setProperty('--font-size', prefs.font_size + 'px');
+        }
+        if (prefs.line_spacing) {
+          document.documentElement.style.setProperty('--line-spacing', prefs.line_spacing);
+        }
+        if (prefs.reduced_motion) {
+          document.documentElement.classList.add('reduced-motion');
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <!-- Consent Banner -->
+  <div id="consent-banner" style="display:none;">
+    <div class="consent-inner">
+      <strong>Data consent required</strong>
+      <p>NeuroLearn processes your pasted notes locally to generate summaries. No data leaves your device. Do you consent to this processing?</p>
+      <p>Your notes are automatically deleted after 7 days.</p>
+      <button id="btn-consent-yes" class="btn btn-primary">I consent</button>
+      <button id="btn-consent-no" class="btn">No thanks</button>
+    </div>
+  </div>
+
+  <header>
+    <div class="container">
+      <a href="/" class="site-title">NeuroLearn</a>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/focus">Focus Timer</a>
+        <a href="/settings">Settings</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <div class="container">
+      <small>NeuroLearn &mdash; Study tool for neurodivergent students &mdash; Data auto-deleted after 7 days</small>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,432 @@
+/* NeuroLearn – single stylesheet */
+
+/* CSS custom properties set by JS (or localStorage) before page paints */
+:root {
+  --font-size: 16px;
+  --line-spacing: 1.5;
+  --bg: #f5f5f0;
+  --text: #222222;
+  --link: #0055cc;
+  --border: #aaaaaa;
+  --accent: #3366cc;
+  --btn-bg: #e0e0e0;
+  --btn-text: #111111;
+  --btn-primary-bg: #3366cc;
+  --btn-primary-text: #ffffff;
+  --header-bg: #dde4ee;
+  --notice-warn-bg: #fff3cd;
+  --notice-ok-bg: #d4edda;
+  --focus-outline: #3366cc;
+  --tts-active-bg: #fff176;
+  --consent-bg: #fff8e1;
+}
+
+/* Theme: low-stim */
+[data-theme="low_stim"] {
+  --bg: #f0eeeb;
+  --text: #333333;
+  --link: #2244aa;
+  --border: #999999;
+  --accent: #556699;
+  --btn-bg: #dddad5;
+  --btn-primary-bg: #556699;
+  --header-bg: #e5e2dd;
+  --consent-bg: #ebe8e3;
+}
+
+/* Theme: high-contrast */
+[data-theme="high_contrast"] {
+  --bg: #ffffff;
+  --text: #000000;
+  --link: #0000ee;
+  --border: #000000;
+  --accent: #000099;
+  --btn-bg: #ffffff;
+  --btn-text: #000000;
+  --btn-primary-bg: #000099;
+  --btn-primary-text: #ffffff;
+  --header-bg: #eeeeee;
+  --focus-outline: #000000;
+  --tts-active-bg: #ffff00;
+}
+
+/* Theme: dark-high-contrast */
+[data-theme="dark_high_contrast"] {
+  --bg: #000000;
+  --text: #ffffff;
+  --link: #ffff66;
+  --border: #ffffff;
+  --accent: #ffff00;
+  --btn-bg: #222222;
+  --btn-text: #ffffff;
+  --btn-primary-bg: #ffff00;
+  --btn-primary-text: #000000;
+  --header-bg: #111111;
+  --focus-outline: #ffff00;
+  --tts-active-bg: #ffff00;
+  --consent-bg: #111100;
+  --notice-warn-bg: #333300;
+  --notice-ok-bg: #003300;
+}
+
+/* Reduced motion */
+.reduced-motion *,
+.reduced-motion *::before,
+.reduced-motion *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* ── Base reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: var(--font-size);
+  line-height: var(--line-spacing);
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: Verdana, Arial, Tahoma, sans-serif;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+a {
+  color: var(--link);
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1.2rem;
+}
+
+/* ── Header ── */
+header {
+  background: var(--header-bg);
+  border-bottom: 2px solid var(--border);
+  padding: 0.6rem 0;
+}
+
+header .container {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.site-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--text);
+}
+
+nav {
+  display: flex;
+  gap: 1.2rem;
+}
+
+nav a {
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* ── Footer ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 0.8rem 0;
+  margin-top: 2rem;
+  font-size: 0.82rem;
+  color: var(--text);
+  opacity: 0.75;
+}
+
+/* ── Consent Banner ── */
+#consent-banner {
+  background: var(--consent-bg);
+  border-bottom: 2px solid var(--border);
+  padding: 0.8rem 0;
+}
+
+.consent-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1.2rem;
+}
+
+.consent-inner p {
+  margin: 0.3rem 0;
+  font-size: 0.9rem;
+}
+
+.consent-inner .btn {
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+/* ── Main content ── */
+main {
+  padding: 1.5rem 1.2rem;
+}
+
+h1 { font-size: 1.6rem; margin-top: 0; }
+h2 { font-size: 1.2rem; border-bottom: 1px solid var(--border); padding-bottom: 0.3rem; }
+section { margin-bottom: 2rem; }
+
+/* ── Forms ── */
+textarea, input[type="text"], select {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: var(--font-size);
+  font-family: inherit;
+  border: 2px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  border-radius: 3px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 180px;
+}
+
+input[type="range"] {
+  cursor: pointer;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: bold;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.radio-group label {
+  font-weight: normal;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+}
+
+/* ── Buttons ── */
+.btn {
+  padding: 0.5rem 1.1rem;
+  font-size: 0.95rem;
+  font-family: inherit;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  border: 2px solid var(--border);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  filter: brightness(0.92);
+}
+
+.btn:focus {
+  outline: 3px solid var(--focus-outline);
+  outline-offset: 2px;
+}
+
+.btn-primary {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border-color: var(--btn-primary-bg);
+}
+
+.btn-danger {
+  background: #cc2200;
+  color: #ffffff;
+  border-color: #aa1100;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Notices ── */
+.notice {
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  margin-bottom: 1rem;
+}
+
+.notice-warn {
+  background: var(--notice-warn-bg);
+}
+
+.notice-ok {
+  background: var(--notice-ok-bg);
+}
+
+/* ── Recent summaries list ── */
+.summary-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.summary-list li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.preview-text {
+  font-size: 0.9rem;
+  opacity: 0.75;
+}
+
+/* ── Reader / TTS ── */
+.summary-reader {
+  font-size: var(--font-size);
+  line-height: var(--line-spacing);
+}
+
+.tts-line {
+  display: block;
+  padding: 0.25rem 0.4rem;
+  border-radius: 2px;
+  margin-bottom: 0.25rem;
+}
+
+.tts-line.tts-active {
+  background: var(--tts-active-bg);
+  color: #000000;
+}
+
+.summary-heading {
+  font-size: 1.15rem;
+  font-weight: bold;
+  margin-bottom: 0.6rem;
+}
+
+.tts-controls {
+  background: var(--header-bg);
+  border: 1px solid var(--border);
+  padding: 0.8rem 1rem;
+  border-radius: 3px;
+  margin-bottom: 1.2rem;
+}
+
+.tts-controls h2 {
+  margin-top: 0;
+  border: none;
+}
+
+.control-row {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.original-text {
+  white-space: pre-wrap;
+  font-size: 0.9rem;
+  border: 1px solid var(--border);
+  padding: 0.6rem;
+  max-height: 300px;
+  overflow-y: auto;
+  background: var(--bg);
+}
+
+/* ── Focus Timer ── */
+.timer-section {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.timer-display {
+  font-size: 4rem;
+  font-weight: bold;
+  font-variant-numeric: tabular-nums;
+  border: 3px solid var(--border);
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  border-radius: 6px;
+  margin-bottom: 0.8rem;
+  min-width: 220px;
+  background: var(--bg);
+}
+
+.timer-status {
+  font-size: 1.05rem;
+  margin-top: 0.5rem;
+  min-height: 1.5rem;
+}
+
+.timer-setup {
+  justify-content: center;
+  margin-bottom: 0.6rem;
+}
+
+#timer-duration-label {
+  font-weight: bold;
+  min-width: 5rem;
+  text-align: center;
+}
+
+/* ── Tasks ── */
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.8rem 0 0 0;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.task-checkbox {
+  width: 1.2rem;
+  height: 1.2rem;
+  cursor: pointer;
+}
+
+.task-title {
+  font-size: 1rem;
+}
+
+.task-done .task-title {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.tasks-section .control-row {
+  margin-top: 0.4rem;
+}
