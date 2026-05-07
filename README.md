@@ -114,3 +114,12 @@ Paste any of these into the home page to test summarisation and text-to-speech. 
 | R4 – Focus timer + tasks | `static/app.js` `initFocusTimer()`, `templates/focus.html`, `app.py` `/focus/*` `/tasks/*` |
 | NFR-A – Accessibility | `static/style.css`, `static/app.js` |
 | NFR-P – Privacy | `retention.py`, `app.py` `/consent` `/delete-my-data`, `database.py` |
+
+
+## Known limitations
+
+- Summarisation is extractive only — it selects key sentences rather than generating new text, so it works best with longer passages
+- Text-to-speech voice availability depends on the browser — Chrome and Edge have the widest range of voices
+- Single demo user with no login or authentication
+- Only pasted plain text is supported — no file upload
+- Consent expires after 7 days and must be given again
